@@ -23,13 +23,12 @@ class App{
 	  void drive_cb(const lcm::ReceiveBuffer* rbuf,
 		   const std::string& chan, 
 		   const STM::control_msg_t* msg);
-
 };
 
 App::App(ros::NodeHandle node_):
   node_(node_){
 
-  std::cout << "Initializing Translator\n";
+  std::cout << "Initialising Translator\n";
   if(!lcm_.good()){
 	std::cerr <<"ERROR: lcm is not good()" <<std::endl;
   }
@@ -38,10 +37,10 @@ App::App(ros::NodeHandle node_):
 // %Tag(SUBSCRIBER)%
   lcm_.subscribe("STM_CONTROL_RESPONSE", &App::drive_cb, this);
 // %EndTag(SUBSCRIBER)%
-// %Tag(SUBSCRIBER)%
+// %Tag(PUBLISHER)%
   drive_left_pub_  = node_.advertise<std_msgs::Float32>("left_thrust_cmd",1000);
   drive_right_pub_ = node_.advertise<std_msgs::Float32>("right_thrust_cmd",1000);
-// %EndTag(SUBSCRIBER)%
+// %EndTag(PUBLISHER)%
 
 };
 
@@ -49,7 +48,7 @@ App::~App() {
 };
 
 int App::handle(){
-  std::cout << "handle\n";
+//  std::cout << "handle\n";
   return lcm_.handle();
 }
 
@@ -75,7 +74,7 @@ int main(int argc, char **argv){
   ros::NodeHandle n;
   App* lcmapp = new App(n);
   
-  std::cout << "lcm2ros translator ready\n";
+  std::cout << "lcm to ros translator ready\n";
 // %Tag(SPIN)%
   while((0 == lcmapp->handle()) && (ros::ok()));
 // %EndTag(SPIN)%

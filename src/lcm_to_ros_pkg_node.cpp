@@ -6,7 +6,6 @@
 #include <lcm/lcm-cpp.hpp>
 
 #include <lcm_types.hpp>
-#include <STM/control_msg_t.hpp>
 
 class App{
 	public:
